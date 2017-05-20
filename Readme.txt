@@ -59,8 +59,8 @@ Expected availability of the search result / absence of a search result.
 ·      Write the first letter "A" of the English alphabet in lowercase. Make sure there are no results on the page.
 ·      Enter one digit "1". Make sure results are not empty.
 ·      Enter a number and a letter without a space "1a". Make sure there are no results on the page.
-·      Enter the number and letter of the Russian alphabet with a space between them "1 a". Make sure results are not empty.
-·      Enter two identical letters of the Russian alphabet "aa". Make sure there are no results on the page.
+·      Enter the number and letter of the Russian alphabet with a space between them "1 a". Make sure results are not present.
+·      Enter two identical letters of the Russian alphabet "aa". Make sure results are not empty.
 ·      Enter two identical letters of the English alphabet "aa". Make sure there are no results on the page.
 ·      Enter the word available in the ÖÃÈÀ ĞÁ database and absent in the ÍÈÀÁ database - "Óôà". Make sure results are not empty.
 ·      Enter the word available in the ÖÃÈÀ ĞÁ database and absent in the ÍÈÀÁ database - "ãóáåğíèÿ". Make sure results are not empty.
