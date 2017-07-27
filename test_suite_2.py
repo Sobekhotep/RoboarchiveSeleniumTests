@@ -16,6 +16,12 @@ def wait_for_element_by_css(driver, css_selector, timeout=10):
 
 
 class BaseSeleniumTestCase(TestCase):
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+
+    def tearDown(self):
+        self.driver.quit()
+
     def assert_css_selector_exists(self, driver, css_selector):
         try:
             driver.find_element_by_css_selector(css_selector)
@@ -25,16 +31,58 @@ class BaseSeleniumTestCase(TestCase):
 
 class TestSearchField(BaseSeleniumTestCase):
     def test_empty_search_field(self):
-        driver = webdriver.Firefox()
-        driver.get("http://roboarchive.org/search")
 
-        search_input = wait_for_element_by_css(driver, "#search-input")
+        self.driver.get("http://roboarchive.org/search")
 
-        button = wait_for_element_by_css(driver, "#search-button")
+        search_input = wait_for_element_by_css(self.driver, "#search-input")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(driver, "#search-results")
-        self.assert_css_selector_exists(driver, '.search-result-item')
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_exists(self.driver, '.search-result-item')
+
+    def test_search_field_with_russian_a(self):
+        self.driver.get("http://roboarchive.org/search")
+
+        search_input = wait_for_element_by_css(self.driver, "#search-input")
+
+        elem = self.driver.find_element_by_id("search-input")
+        elem.send_keys("а")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
+        button.click()
+
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_exists(self.driver, '.search-result-item')
+
+    def test_search_field_with_russian_A(self):
+        self.driver.get("http://roboarchive.org/search")
+
+        search_input = wait_for_element_by_css(self.driver, "#search-input")
+
+        elem = self.driver.find_element_by_id("search-input")
+        elem.send_keys("А")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
+        button.click()
+
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_exists(self.driver, '.search-result-item')
+
+    def test_search_field_with_space(self):
+        self.driver.get("http://roboarchive.org/search")
+
+        search_input = wait_for_element_by_css(self.driver, "#search-input")
+
+        elem = self.driver.find_element_by_id("search-input")
+        elem.send_keys(" ")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
+        button.click()
+
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_exists(self.driver, '.search-result-item')
 
 
 if __name__ == "__main__":
