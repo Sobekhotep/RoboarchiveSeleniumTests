@@ -28,8 +28,16 @@ class BaseSeleniumTestCase(TestCase):
         except NoSuchElementException as e:
             self.fail('Element with selector {} not found'.format(css_selector))
 
+    def assert_css_selector_not_exist(self, driver, css_selector):
+        try:
+            driver.find_element_by_css_selector(css_selector)
+            self.fail('Element with selector {} found, which was not expected'.format(css_selector))
+        except NoSuchElementException as e:
+            pass
+
 
 class TestSearchField(BaseSeleniumTestCase):
+
     def test_empty_search_field(self):
 
         self.driver.get("http://roboarchive.org/search")
@@ -85,6 +93,26 @@ class TestSearchField(BaseSeleniumTestCase):
     def test_search_field_with_ampersant(self):
         elem = self.prepare_search_test()
         elem.send_keys("@")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
+        button.click()
+
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_not_exist(self.driver, '.search-result-item')
+
+    def test_search_field_with_Ufa(self):
+        elem = self.prepare_search_test()
+        elem.send_keys("Уфа")
+
+        button = wait_for_element_by_css(self.driver, "#search-button")
+        button.click()
+
+        results_element = wait_for_element_by_css(self.driver, "#search-results")
+        self.assert_css_selector_exists(self.driver, '.search-result-item')
+
+    def test_search_field_with_Guberniya(self):
+        elem = self.prepare_search_test()
+        elem.send_keys("губерния")
 
         button = wait_for_element_by_css(self.driver, "#search-button")
         button.click()
