@@ -90,7 +90,7 @@ class TestSearchField(BaseSeleniumTestCase):
         results_element = wait_for_element(self.driver, "#search-results")
         self.assert_element_exists(self.driver, '.search-result-item')
 
-    def test_search_field_with_ampersant(self):
+    def test_search_field_with_at(self):
         elem = self.prepare_search_test()
         elem.send_keys("@")
 
@@ -117,7 +117,7 @@ class TestSearchField(BaseSeleniumTestCase):
         button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element(self.driver, "#search-results")
+        results_element = wait_for_element(self.driver, "#search-results", timeout=30)
         self.assert_element_exists(self.driver, '.search-result-item')
 
     def prepare_search_test(self):
