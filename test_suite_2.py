@@ -8,9 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from unittest import TestCase
 
 
-def wait_for_element_by_css(driver, css_selector, timeout=10):
+def wait_for_element(driver, locator, timeout=10, by=By.CSS_SELECTOR):
     element = WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, css_selector))
+        EC.presence_of_element_located((by, locator))
     )
     return element
 
@@ -22,16 +22,16 @@ class BaseSeleniumTestCase(TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def assert_css_selector_exists(self, driver, css_selector):
+    def assert_element_exists(self, driver, locator, by=By.CSS_SELECTOR):
         try:
-            driver.find_element_by_css_selector(css_selector)
+            driver.find_element(by, locator)
         except NoSuchElementException as e:
-            self.fail('Element with selector {} not found'.format(css_selector))
+            self.fail('Element with selector {} not found'.format(locator))
 
-    def assert_css_selector_not_exist(self, driver, css_selector):
+    def assert_element_not_exist(self, driver, locator, by=By.CSS_SELECTOR):
         try:
-            driver.find_element_by_css_selector(css_selector)
-            self.fail('Element with selector {} found, which was not expected'.format(css_selector))
+            driver.find_element(by, locator)
+            self.fail('Element with selector {} found, which was not expected'.format(locator))
         except NoSuchElementException as e:
             pass
 
@@ -42,87 +42,87 @@ class TestSearchField(BaseSeleniumTestCase):
 
         self.driver.get("http://roboarchive.org/search")
 
-        search_input = wait_for_element_by_css(self.driver, "#search-input")
+        search_input = wait_for_element(self.driver, "#search-input")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def test_search_field_with_russian_a(self):
         elem = self.prepare_search_test()
         elem.send_keys("а")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def test_search_field_with_russian_A(self):
         elem = self.prepare_search_test()
         elem.send_keys("А")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def test_search_field_with_space(self):
         elem = self.prepare_search_test()
         elem.send_keys(" ")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def test_search_field_with_point(self):
         elem = self.prepare_search_test()
         elem.send_keys(".")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def test_search_field_with_ampersant(self):
         elem = self.prepare_search_test()
         elem.send_keys("@")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_not_exist(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_not_exist(self.driver, '.search-result-item')
 
-    def test_search_field_with_Ufa(self):
+    def test_search_field_with_ufa(self):
         elem = self.prepare_search_test()
         elem.send_keys("Уфа")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
-    def test_search_field_with_Guberniya(self):
+    def test_search_field_with_guberniya(self):
         elem = self.prepare_search_test()
         elem.send_keys("губерния")
 
-        button = wait_for_element_by_css(self.driver, "#search-button")
+        button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element_by_css(self.driver, "#search-results")
-        self.assert_css_selector_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, '.search-result-item')
 
     def prepare_search_test(self):
         self.driver.get("http://roboarchive.org/search")
-        search_input = wait_for_element_by_css(self.driver, "#search-input")
+        search_input = wait_for_element(self.driver, "#search-input")
         elem = self.driver.find_element_by_id("search-input")
         return elem
 
