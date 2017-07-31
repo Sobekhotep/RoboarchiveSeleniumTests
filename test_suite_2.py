@@ -92,12 +92,13 @@ class TestSearchField(BaseSeleniumTestCase):
 
     def test_search_field_with_at(self):
         elem = self.prepare_search_test()
-        elem.send_keys("@")
+        elem.send_keys("а")
 
         button = wait_for_element(self.driver, "#search-button")
         button.click()
 
         results_element = wait_for_element(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
+        self.assert_element_not_exist(self.driver, "//div[. = 'Поиск...']")
         self.assert_element_not_exist(self.driver, '.search-result-item')
 
     def test_search_field_with_ufa(self):
