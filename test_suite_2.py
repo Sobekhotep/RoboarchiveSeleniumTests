@@ -7,13 +7,17 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from unittest import TestCase
 
-
 def wait_for_element(driver, locator, timeout=10, by=By.CSS_SELECTOR):
     element = WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((by, locator))
     )
     return element
 
+def wait_for_element_disappear(driver, locator, timeout=10, by=By.CSS_SELECTOR):
+    element = WebDriverWait(driver, timeout).until_not(
+        EC.presence_of_element_located((by, locator))
+    )
+    return element
 
 class BaseSeleniumTestCase(TestCase):
     def setUp(self):
@@ -37,6 +41,12 @@ class BaseSeleniumTestCase(TestCase):
 
 
 class TestSearchField(BaseSeleniumTestCase):
+
+    def prepare_search_test(self):
+        self.driver.get("http://roboarchive.org/search")
+        search_input = wait_for_element(self.driver, "#search-input")
+        elem = self.driver.find_element_by_id("search-input")
+        return elem
 
     def test_empty_search_field(self):
 
@@ -92,14 +102,14 @@ class TestSearchField(BaseSeleniumTestCase):
 
     def test_search_field_with_at(self):
         elem = self.prepare_search_test()
-        elem.send_keys("а")
+        elem.send_keys("@")
 
         button = wait_for_element(self.driver, "#search-button")
         button.click()
 
         results_element = wait_for_element(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
-        self.assert_element_not_exist(self.driver, "//div[. = 'Поиск...']")
-        self.assert_element_not_exist(self.driver, '.search-result-item')
+        results_element_disappear = wait_for_element_disappear(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
+        self.assert_element_not_exist(self.driver, "#search-results")
 
     def test_search_field_with_ufa(self):
         elem = self.prepare_search_test()
@@ -120,13 +130,6 @@ class TestSearchField(BaseSeleniumTestCase):
 
         results_element = wait_for_element(self.driver, "#search-results", timeout=30)
         self.assert_element_exists(self.driver, '.search-result-item')
-
-    def prepare_search_test(self):
-        self.driver.get("http://roboarchive.org/search")
-        search_input = wait_for_element(self.driver, "#search-input")
-        elem = self.driver.find_element_by_id("search-input")
-        return elem
-
 
 if __name__ == "__main__":
     unittest.main()
