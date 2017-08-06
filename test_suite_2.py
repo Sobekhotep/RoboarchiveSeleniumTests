@@ -8,12 +8,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from unittest import TestCase
 
 def wait_for_element(driver, locator, timeout=10, by=By.CSS_SELECTOR):
+    """Function to wait for the element to appear on the page. Default timeout is 10 Sec, locator is CSS selector."""
     element = WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((by, locator))
     )
     return element
 
 def wait_for_element_disappear(driver, locator, timeout=10, by=By.CSS_SELECTOR):
+    """Function to wait for the element to disappear on the page. Default timeout is 10 Sec, locator is CSS selector."""
     element = WebDriverWait(driver, timeout).until_not(
         EC.presence_of_element_located((by, locator))
     )
@@ -27,12 +29,14 @@ class BaseSeleniumTestCase(TestCase):
         self.driver.quit()
 
     def assert_element_exists(self, driver, locator, by=By.CSS_SELECTOR):
+        """Function to wait for the element exists on the page. Default locator is CSS selector."""
         try:
             driver.find_element(by, locator)
         except NoSuchElementException as e:
             self.fail('Element with selector {} not found'.format(locator))
 
     def assert_element_not_exist(self, driver, locator, by=By.CSS_SELECTOR):
+        """Function to wait for the element exists on the page. Default locator is CSS selector."""
         try:
             driver.find_element(by, locator)
             self.fail('Element with selector {} found, which was not expected'.format(locator))
