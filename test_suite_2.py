@@ -55,18 +55,18 @@ class TestSearchField(BaseSeleniumTestCase):
 
         click_search_options_niab = wait_for_element(self.driver, ".col-sm-8")
         button = wait_for_element(self.driver, ".col-sm-8>div.checkbox:nth-child(1)>label>input[type=checkbox]")
-        button.click()
+        button.click() #Если закомментировать эту строку и раскомментировать три следующие, то тест пройдет нормально
 
-        click_search_options_niab = wait_for_element(self.driver, ".col-sm-8")
-        button = wait_for_element(self.driver, ".col-sm-8>div.checkbox:nth-child(2)>label>input[type=checkbox]")
-        button.click()
+        #click_search_options_niab = wait_for_element(self.driver, ".col-sm-8")
+        #button = wait_for_element(self.driver, ".col-sm-8>div.checkbox:nth-child(2)>label>input[type=checkbox]")
+        #button.click()
 
         search_input = wait_for_element(self.driver, "#search-input")
         elem = self.driver.find_element_by_id("search-input")
         return elem
 
 
-    def test_empty_search_field(self):
+    """def test_empty_search_field(self):
         elem = self.prepare_search_test()
 
         results_element = wait_for_element(self.driver, "#search-results")
@@ -110,9 +110,9 @@ class TestSearchField(BaseSeleniumTestCase):
         button.click()
 
         results_element = wait_for_element(self.driver, "#search-results")
-        self.assert_element_exists(self.driver, '.search-result-item')
+        self.assert_element_exists(self.driver, '.search-result-item')"""
 
-    def test_search_field_with_at(self):
+    def test_search_field_with_at(self): # Для проверки запускать отсюда
         elem = self.prepare_search_test()
         elem.send_keys("@")
 
@@ -123,7 +123,7 @@ class TestSearchField(BaseSeleniumTestCase):
         results_element_disappear = wait_for_element_disappear(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
         self.assert_element_not_exist(self.driver, "#search-results")
 
-    def test_search_field_with_ufa(self):
+    """def test_search_field_with_ufa(self):
         elem = self.prepare_search_test()
         elem.send_keys("Уфа")
 
@@ -152,6 +152,7 @@ class TestSearchField(BaseSeleniumTestCase):
         button.click()
 
         results_element = wait_for_element(self.driver, "#search-results", timeout=30)
-        self.assert_element_exists(self.driver, '.search-result-item')
+        self.assert_element_exists(self.driver, '.search-result-item')"""
+
 if __name__ == "__main__":
     unittest.main()
