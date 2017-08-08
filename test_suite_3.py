@@ -128,37 +128,29 @@ class TestSearchField(BaseSeleniumTestCase):
 
         results_element = wait_for_element(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
         results_element_disappear = wait_for_element_disappear(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
-        self.assert_element_not_exist(self.driver, "#search-results")
+        self.assert_element_exists(self.driver, "#search-results")
 
-    def test_search_field_with_ufa(self):
-        elem = self.prepare_search_test()
-        elem.send_keys("Уфа")
-
-        button = wait_for_element(self.driver, "#search-button")
-        button.click()
-
-        results_element = wait_for_element(self.driver, "#search-results")
-        self.assert_element_exists(self.driver, '.search-result-item')
-
-    def test_search_field_with_guberniya(self):
+    def test_search_field_with_gubernia(self):
         elem = self.prepare_search_test()
         elem.send_keys("губерния")
 
         button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element(self.driver, "#search-results", timeout=30)
+        results_element = wait_for_element(self.driver, "#search-results", timeout=60)
         self.assert_element_exists(self.driver, '.search-result-item')
 
-    def test_search_field_with_minsk(self):
+    def test_search_field_with_vileika(self):
         elem = self.prepare_search_test()
-        elem.send_keys("Минск")
+        elem.send_keys("Вилейка")
 
         button = wait_for_element(self.driver, "#search-button")
         button.click()
 
-        results_element = wait_for_element(self.driver, "#search-results", timeout=30)
-        self.assert_element_exists(self.driver, '.search-result-item')
+        results_element = wait_for_element(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
+        results_element_disappear = wait_for_element_disappear(self.driver, "//div[. = 'Поиск...']", by=By.XPATH)
+        self.assert_element_not_exist(self.driver, "#search-results")
+
 if __name__ == "__main__":
     unittest.main()
 
