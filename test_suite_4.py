@@ -16,9 +16,13 @@ class TestURLField(BaseSeleniumTestCase):
     def test_url_after_click_search(self):
         search_url = "http://roboarchive.org/search"
         self.driver.get(search_url)
-        url = self.driver.current_url
 
-        self.assertEqual(url, search_url)
+        button = self.wait_for_element("#search-button")
+        button.click()
+
+        self.wait_for_element('.search-result-item')
+
+        self.assertEqual(self.driver.current_url, search_url)
 
 
 if __name__ == "__main__":
