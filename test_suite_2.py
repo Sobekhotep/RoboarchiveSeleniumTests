@@ -1,10 +1,8 @@
 import unittest
-
 from selenium.webdriver.common.by import By
 from base_selenium_test_case import BaseSeleniumTestCase
 
-
-class TestSearchField(BaseSeleniumTestCase):
+class TestSearchFieldWithNIAB(BaseSeleniumTestCase):
 
     def prepare_search_test(self):
         self.driver.get("http://roboarchive.org/search")
@@ -109,7 +107,7 @@ class TestSearchField(BaseSeleniumTestCase):
         button = self.wait_for_element("#search-button")
         button.click()
 
-        results_element = self.wait_for_element("#search-results", timeout=30)
+        results_element = self.wait_for_element("#search-results")
         self.assert_element_exists(self.driver, '.search-result-item')
 
 if __name__ == "__main__":
