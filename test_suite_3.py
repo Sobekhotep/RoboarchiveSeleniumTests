@@ -1,11 +1,13 @@
 import unittest
+
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from unittest import TestCase
+from base_selenium_test_case import BaseSeleniumTestCase
 
 def wait_for_element(driver, locator, timeout=10, by=By.CSS_SELECTOR):
     """Function to wait for the element to appear on the page. Default timeout is 10 Sec, locator is CSS selector."""
