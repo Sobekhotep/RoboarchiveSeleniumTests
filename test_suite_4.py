@@ -22,7 +22,10 @@ class TestURLField(BaseSeleniumTestCase):
 
         self.wait_for_element('.search-result-item')
 
-        self.assertEqual(self.driver.current_url, search_url)
+        url = "http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&" \
+              "fromdate=&gasrb=false&niab=false&page=1&search=&todate="
+
+        self.assertEqual(self.driver.current_url, url)
 
 
 if __name__ == "__main__":
