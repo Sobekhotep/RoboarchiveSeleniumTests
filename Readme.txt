@@ -68,7 +68,7 @@ Expected availability of the search result / absence of a search result.
 ·      Enter the word available in the ЦГИА РБ database and absent in the НИАБ database – «Оренбург». Make sure results are not empty.
 ·      Enter the word available in the НИАБ database and absent in the ЦГИА РБ database - «Вилейка». Make sure there are no results on the page.
  
-3.      Testing URLs for various search parameters. The URL must change after making changes to the search parameters confirmed by pressing the "Enter" button.
+4.      Testing URLs for various search parameters. The URL must change after making changes to the search parameters confirmed by pressing the "Enter" button.
  
 Press the button "Enter". The URL value is:
 http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&fromdate=&gasrb=false&niab=false&page=1&search=&todate=
@@ -79,13 +79,12 @@ Mark the field of the ЦГИА РБ by ticking the box, press the "Enter" button
  
 Mark the " Заголовок документа " field by ticking, then press "Enter" button. The URL value is: http://roboarchive.org/search?docdescription=false&doctitle=true&emptysearch=true&fromdate=&gasrb=false&niab=false&page=1&search=&todate=
  
- 
 Mark the " Описание документа " field, click "Enter". The URL value is: http://roboarchive.org/search?docdescription=true&doctitle=false&emptysearch=true&fromdate=&gasrb=false&niab=false&page=1&search=&todate=
  
 Enter  the  value  "1800"  in  the  "От"  field and the value "1900" in the "До" field of the time range, press the button "Search" (Enter). The URL value is:
  http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&fromdate=1800&gasrb=false&niab=false&page=1&search=&todate=1900
 
- Enter the value of "Уфа" in the search field, click "Search" (Enter). The URL value is: http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&fromdate=&gasrb=false&niab=false&page=1&search=%D0%A3%D1%84%D0%B0&todate=
+Enter the value of "Уфа" in the search field, click "Search" (Enter). The URL value is: http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&fromdate=&gasrb=false&niab=false&page=1&search=%D0%A3%D1%84%D0%B0&todate=
  
 Enter the value of "Уфа" in the search field, tick the field ЦГИА РБ, enter the value "1800" in the field "От" and the value "1900" in the "До" field of the time range, click "Enter". Select the search page 5. The URL value is: 
 http://roboarchive.org/search?docdescription=false&doctitle=false&emptysearch=true&fromdate=1800&gasrb=true&niab=false&page=5&search=%D0%A3%D1%84%D0%B0&todate=1900
