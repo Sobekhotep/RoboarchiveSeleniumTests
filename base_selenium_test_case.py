@@ -14,14 +14,14 @@ class BaseSeleniumTestCase(TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def wait_for_element(self, locator, timeout=20, by=By.CSS_SELECTOR):
-        """Function to wait for the element to appear on the page. Default timeout is 20 Sec, locator is CSS selector."""
+    def wait_for_element(self, locator, timeout=10, by=By.CSS_SELECTOR):
+        """Function to wait for the element to appear on the page. Default timeout is 10 Sec, locator is CSS selector."""
         element = WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((by, locator))
         )
         return element
 
-    def wait_for_element_disappear(self, locator, timeout=30, by=By.CSS_SELECTOR):
+    def wait_for_element_disappear(self, locator, timeout=10, by=By.CSS_SELECTOR):
         """Function to wait for the element to disappear on the page. Default timeout is 10 Sec, locator is CSS selector."""
         element = WebDriverWait(self.driver, timeout).until_not(
             EC.presence_of_element_located((by, locator))

@@ -7,7 +7,7 @@ class TestSearchField(BaseSeleniumTestCase):
     def prepare_search_test(self):
         self.driver.get("http://roboarchive.org/search")
         search_input = self.wait_for_element("#search-input")
-        elem = self.driver.find_element_by_id("search-input")
+        elem         = self.driver.find_element_by_id("search-input")
         return elem
 
     def test_empty_search_field(self):
